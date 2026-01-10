@@ -5,9 +5,19 @@
 ![Tashi Technologies Banner](https://via.placeholder.com/1200x600/000000/3B82F6?text=TASHI+TECHNOLOGIES)
 
 ## 📡 Transmission
-**tashitech.ai** is a high-density, minimalist Single Page Application (SPA) designed to showcase next-generation infrastructure services at the intersection of Artificial Intelligence and Blockchain technology.
+**tashitech.ai** is a high-density, minimalist Single Page Application (SPA) designed to showcase next-generation infrastructure services at the intersection of Artificial Intelligence, Cloud, and Blockchain technology.
 
 Built with a philosophy of **Radical Minimalism** and **High-Density Intelligence**, the platform mimics the fluid physics of Apple's UI combined with the data-dense aesthetic of Palantir.
+
+## ⚡ Service Capabilities
+
+Tashi Technologies delivers a complete ecosystem of digital infrastructure:
+
+- **AI Solutions:** Custom LLM integration, Agent Identity, and Autonomous Systems.
+- **Web Development:** High-performance Full-Stack (MERN) web applications.
+- **Cloud Infrastructure:** Scalable serverless and containerized deployments.
+- **Hyper-Automation:** Advanced workflows using **n8n**, **Zapier**, and **Make.com**.
+- **Blockchain:** On-chain governance and smart contract auditing.
 
 ## 🛠 Architecture & Stack
 
@@ -21,7 +31,7 @@ This project leverages a modern, performance-first stack to deliver 60fps animat
 | **Icons** | Lucide React | Clean, lightweight SVG iconography. |
 | **Typography** | Inter | Variable font mirroring system-ui aesthetics. |
 
-## ✨ Key Features
+## ✨ Key Technical Features
 
 - **State-Based Virtual Routing:** Seamless view transitions without page reloads, preserving the "App-like" feel.
 - **Glassmorphism 2.0:** Dynamic, scroll-aware headers with backdrop blurring and localized border glows.

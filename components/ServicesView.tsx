@@ -1,55 +1,55 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BrainCircuit, Fingerprint, ShieldCheck, FileSearch, ArrowUpRight } from 'lucide-react';
+import { Brain, Cloud, Zap, Shield, ArrowUpRight } from 'lucide-react';
 
 const ServicesView: React.FC = () => {
   const serviceGroups = [
     {
-      title: "Agent Identity & DID",
-      icon: Fingerprint,
-      description: "Establishing distinct, sovereign identities for AI agents on the blockchain.",
+      title: "AI Solutions",
+      icon: Brain,
+      description: "Enterprise-grade artificial intelligence and autonomous agentic systems.",
       items: [
-        "AI Agents",
-        "Blockchain-Based Agent Identity",
-        "Decentralized Identity (DID) for AI Systems"
+        "Custom AI Agents",
+        "LLM Integration",
+        "Agent Identity (DID)"
       ],
       colSpan: "md:col-span-1",
       bgGradient: "from-blue-900/20 to-transparent"
     },
     {
-      title: "On-Chain Governance",
-      icon: ShieldCheck,
-      description: "Enforcing rigorous access control and permission layers via smart contracts.",
+      title: "Web & Cloud",
+      icon: Cloud,
+      description: "High-performance full-stack development and scalable cloud infrastructure.",
       items: [
-        "On-Chain Permissions & Access Control",
-        "Smart-Contract Approval Gates",
-        "AI Agents with Blockchain Permissions"
+        "Web Development (MERN)",
+        "Cloud Services Architecture",
+        "Serverless Deployments"
       ],
       colSpan: "md:col-span-1",
       bgGradient: "from-indigo-900/20 to-transparent"
     },
     {
-      title: "Verifiable Trust & Audit",
-      icon: FileSearch,
-      description: "Creating immutable, traceable logs for every agent action and decision.",
+      title: "Hyper-Automation",
+      icon: Zap,
+      description: "Streamlining business logic with the world's most powerful integration tools.",
       items: [
-        "Immutable Agent Activity Logs",
-        "Agent Accountability & Traceability",
-        "Verifiable AI & Compliance Support",
-        "Verifiable AI & On-Chain Audit Trails"
+        "n8n Workflows",
+        "Make.com & Zapier",
+        "Process Optimization"
       ],
       colSpan: "md:col-span-1",
       bgGradient: "from-purple-900/20 to-transparent"
     },
     {
-      title: "Integration & Automation",
-      icon: BrainCircuit,
-      description: "Seamlessly bridging artificial intelligence with decentralized infrastructure.",
+      title: "Blockchain Governance",
+      icon: Shield,
+      description: "Secure, decentralized decision making layers and smart contract auditing.",
       items: [
-        "AI + Blockchain Integration",
-        "Smart Contract Automation"
+        "On-Chain Governance",
+        "Smart Contracts",
+        "Verifiable Audit Trails"
       ],
-      colSpan: "md:col-span-3 lg:col-span-1", // Make it span full width on medium, or single on large if grid changes
+      colSpan: "md:col-span-1",
       bgGradient: "from-gray-800/40 to-transparent"
     }
   ];
@@ -61,10 +61,10 @@ const ServicesView: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         className="mb-16 max-w-4xl"
       >
-        <h3 className="text-tashi-blue font-mono text-sm mb-4">02 — CORE CAPABILITIES</h3>
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight">The Trust Layer for AI Agents.</h2>
+        <h3 className="text-tashi-blue font-mono text-sm mb-4">02 — INFRASTRUCTURE</h3>
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Full-Stack Intelligence.</h2>
         <p className="mt-6 text-xl text-gray-400">
-          We provide the specialized infrastructure required to make Autonomous Agents verifiable, accountable, and secure.
+          From the application layer to the blockchain, we engineer the complete stack required for the future of business.
         </p>
       </motion.div>
 
@@ -76,7 +76,7 @@ const ServicesView: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
             whileHover={{ y: -5 }}
-            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-tashi-card p-8 hover:border-tashi-blue/30 transition-colors duration-300 flex flex-col"
+            className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-tashi-card p-8 hover:border-tashi-blue/30 transition-colors duration-300 flex flex-col ${group.colSpan}`}
           >
             {/* Ambient Background */}
             <div className={`absolute inset-0 bg-gradient-to-br ${group.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
