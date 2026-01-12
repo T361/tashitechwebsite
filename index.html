@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tashitech.ai | Future of Intelligence</title>
+    <title>Tashi Technologies | The Architecture of Truth</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -19,10 +18,9 @@
             colors: {
               tashi: {
                 black: '#000000',
-                surface: '#080808',
-                card: '#111111',
-                blue: '#3B82F6',
-                border: 'rgba(255, 255, 255, 0.08)',
+                white: '#FFFFFF',
+                gray: '#F5F5F5',
+                border: '#000000',
               }
             }
           }
@@ -31,10 +29,14 @@
     </script>
     <style>
       body {
-        background-color: #000000;
-        color: #ffffff;
+        background-color: #FFFFFF;
+        color: #000000;
         font-family: 'Inter', sans-serif;
         -webkit-font-smoothing: antialiased;
+      }
+      ::selection {
+        background-color: #000000;
+        color: #FFFFFF;
       }
       /* Hide scrollbar for Chrome, Safari and Opera */
       .no-scrollbar::-webkit-scrollbar {
@@ -45,6 +47,26 @@
           -ms-overflow-style: none;  /* IE and Edge */
           scrollbar-width: none;  /* Firefox */
       }
+      
+      html.lenis, html.lenis body {
+        height: auto;
+      }
+      
+      .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+      }
+      
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+      
+      .lenis.lenis-scrolling iframe {
+        pointer-events: none;
+      }
     </style>
   <script type="importmap">
 {
@@ -53,7 +75,8 @@
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "framer-motion": "https://esm.sh/framer-motion@^12.25.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "lenis": "https://esm.sh/lenis@1.1.5"
   }
 }
 </script>
