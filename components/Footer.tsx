@@ -1,57 +1,50 @@
 import React from 'react';
 import { ViewState } from '../types';
-import { motion } from 'framer-motion';
-import { Lock, Database, Hexagon } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface FooterProps {
   onViewChange: (view: ViewState) => void;
 }
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
   return (
-    <motion.footer 
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      className="bg-white border-t-4 border-black pt-24 pb-12 px-6 md:px-12 relative z-10 overflow-hidden font-mono"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-end">
-        
-        {/* Branding Section */}
-        <div>
-           <div className="flex items-center gap-2 mb-6">
-             <Hexagon size={32} className="text-black fill-black" />
-           </div>
-           <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] mb-6">
-             TASHI<br/>TECH.
-           </h2>
-           <p className="text-sm font-bold text-black uppercase tracking-widest max-w-md border-l-2 border-black pl-4">
-             The architecture of truth. Building the verifiable layer for autonomous intelligence.
-           </p>
-        </div>
-
-        {/* Minimal Right Side - Removed Telemetry Bullshit */}
-        <div className="flex justify-start md:justify-end items-end h-full">
-            <h3 className="text-9xl text-gray-100 font-black tracking-tighter select-none leading-none -mb-8">
-              2026
-            </h3>
-        </div>
+    <footer className="bg-white text-black pt-20 border-t border-black overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12 mb-20">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+               <h4 className="text-sm font-bold uppercase tracking-widest mb-8">Navigation</h4>
+               <ul className="space-y-4 font-mono text-sm">
+                  <li onClick={() => onViewChange('about')} className="cursor-pointer hover:underline">Manifesto</li>
+                  <li onClick={() => onViewChange('services')} className="cursor-pointer hover:underline">Solutions</li>
+                  <li onClick={() => onViewChange('contact')} className="cursor-pointer hover:underline">Contact</li>
+               </ul>
+            </div>
+            <div className="flex flex-col justify-between">
+               <div>
+                 <h4 className="text-sm font-bold uppercase tracking-widest mb-8">Locations</h4>
+                 <p className="font-mono text-sm">Islamabad / Global</p>
+               </div>
+               <div className="mt-12">
+                  <button onClick={() => onViewChange('contact')} className="flex items-center gap-2 text-xl font-bold uppercase tracking-tight hover:gap-4 transition-all">
+                     Start Project <ArrowUpRight />
+                  </button>
+               </div>
+            </div>
+         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-black pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase font-bold tracking-[0.2em]">
-         <div className="flex items-center gap-4">
-            <span>© 2026 Tashi Technologies</span>
-            <span className="hidden md:inline">/</span>
-            <span>Islamabad, PK</span>
-         </div>
-         
-         <div className="flex items-center gap-8 text-black opacity-60 hover:opacity-100 transition-opacity">
-            <div className="flex items-center gap-2"><Lock size={12} /> <span>Encrypted</span></div>
-            <div className="flex items-center gap-2"><Database size={12} /> <span>Verified</span></div>
-         </div>
+      {/* Massive Logo */}
+      <div className="w-full border-t border-black">
+         <h1 className="text-[25vw] leading-[0.8] font-black tracking-tighter text-center select-none hover:text-transparent hover:bg-clip-text hover:bg-black transition-colors">
+            TASHI
+         </h1>
       </div>
       
-    </motion.footer>
+      <div className="bg-black text-white py-4 px-6 md:px-12 flex justify-between items-center text-[10px] font-mono uppercase">
+         <span>© 2026 Tashi Technologies</span>
+         <span>Work That Works!</span>
+      </div>
+    </footer>
   );
 };
 

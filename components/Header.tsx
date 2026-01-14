@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Cpu, Crosshair } from 'lucide-react';
+import { Menu, X, Cpu, ArrowUpRight } from 'lucide-react';
 import { ViewState, NavItem } from '../types';
 import ScrambleText from './ScrambleText';
 
@@ -10,10 +10,9 @@ interface HeaderProps {
 }
 
 const navItems: NavItem[] = [
-  { id: 'home', label: 'INDEX' },
-  { id: 'services', label: 'SYSTEMS' },
-  { id: 'about', label: 'MISSION' },
-  { id: 'contact', label: 'UPLINK' },
+  { id: 'about', label: 'MANIFESTO' },
+  { id: 'services', label: 'SOLUTIONS' },
+  { id: 'contact', label: 'CONTACT' },
 ];
 
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
@@ -22,74 +21,61 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   return (
     <>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50 h-20 bg-white/80 backdrop-blur-md border-b border-black/10 flex items-center justify-between px-6 lg:px-12"
+        className="fixed top-0 left-0 right-0 z-50 h-24 bg-white/90 backdrop-blur-sm flex items-center justify-between px-6 lg:px-12 border-b border-black"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "circOut" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Top Decorative Line */}
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-black/5" />
-        
         {/* Logo Area */}
         <div 
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-4 cursor-pointer group"
           onClick={() => onViewChange('home')}
         >
-          <div className="relative w-8 h-8 flex items-center justify-center bg-black text-white overflow-hidden">
-             <Cpu size={18} className="relative z-10" />
-             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-difference" />
+          <div className="w-10 h-10 bg-black text-white flex items-center justify-center">
+             <div className="w-4 h-4 bg-white rounded-full"></div>
           </div>
           <div className="flex flex-col leading-none">
-            <span className="font-black text-lg tracking-tighter uppercase">TASHI<span className="font-light">TECH</span></span>
-            <span className="text-[0.55rem] font-mono tracking-[0.2em] text-gray-500 uppercase">Verifiable Intelligence</span>
+            <span className="font-black text-xl tracking-tighter uppercase">TASHI</span>
+            <span className="text-[0.6rem] font-mono tracking-widest uppercase">Technologies</span>
           </div>
         </div>
 
-        {/* Desktop Nav - HUD Style */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Desktop Nav - Editorial Style */}
+        <nav className="hidden md:flex items-center gap-12">
           {navItems.map((item, idx) => {
             const isActive = currentView === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => onViewChange(item.id)}
-                className={`relative group flex flex-col items-center justify-center h-10 px-2`}
+                className="relative group flex items-start gap-1"
               >
-                <div className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
-                  <span className={`text-[10px] font-mono text-gray-400 transition-colors ${isActive ? 'text-black' : ''}`}>
-                    0{idx + 1}
-                  </span>
-                  <span className={`${isActive ? 'text-black' : 'text-gray-500 group-hover:text-black'} transition-colors duration-300`}>
-                     {isActive ? <ScrambleText text={`[ ${item.label} ]`} speed={50} /> : item.label}
-                  </span>
-                </div>
-                {/* Active Indicator Line */}
-                <span className={`absolute -bottom-5 w-full h-[2px] bg-black transform transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0'}`} />
+                <span className="text-[10px] font-mono -mt-1">{`0${idx + 1}`}</span>
+                <span className={`text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${isActive ? 'text-black' : 'text-gray-400 group-hover:text-black'}`}>
+                   {item.label}
+                </span>
               </button>
             );
           })}
         </nav>
 
-        {/* Right Side Status */}
-        <div className="hidden md:flex items-center gap-4">
-           <div className="flex flex-col items-end">
-              <span className="text-[0.6rem] font-mono uppercase text-gray-400">Net_Status</span>
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
-                <span className="text-xs font-bold tracking-wider">ONLINE</span>
-              </div>
+        {/* Right Side Tagline */}
+        <div className="hidden md:flex items-center gap-6">
+           <div className="text-right">
+              <div className="text-xs font-black uppercase tracking-tight">WORK THAT WORKS!</div>
+              <div className="text-[0.6rem] font-mono text-gray-500">SYSTEMS ONLINE</div>
            </div>
            <button 
              onClick={() => onViewChange('contact')}
-             className="ml-4 w-10 h-10 border border-black flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 group"
+             className="w-12 h-12 bg-black text-white flex items-center justify-center hover:scale-105 transition-transform duration-300"
            >
-             <Crosshair size={18} className="group-hover:rotate-90 transition-transform duration-500" />
+             <ArrowUpRight size={20} />
            </button>
         </div>
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden p-2 border border-black"
+          className="md:hidden p-2 border border-black bg-black text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -100,32 +86,39 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white flex flex-col pt-24 px-6 md:hidden"
+            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
+            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 bg-white flex flex-col justify-between pt-32 pb-12 px-6 md:hidden"
           >
-             {navItems.map((item, i) => (
-              <motion.button
-                key={item.id}
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => {
-                  onViewChange(item.id);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full text-left py-6 border-b border-gray-100 group"
-              >
-                <div className="flex items-baseline gap-4">
-                  <span className="font-mono text-xs text-gray-400">0{i + 1} //</span>
-                  <span className="text-3xl font-black uppercase tracking-tighter group-hover:translate-x-2 transition-transform">
-                    {item.label}
-                  </span>
-                </div>
-              </motion.button>
-            ))}
+             <div className="flex flex-col gap-4">
+               {navItems.map((item, i) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: i * 0.1 }}
+                  onClick={() => {
+                    onViewChange(item.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full text-left py-4 border-b border-black group"
+                >
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-xs text-black">0{i + 1}</span>
+                    <span className="text-4xl font-black uppercase tracking-tighter group-hover:pl-4 transition-all duration-300">
+                      {item.label}
+                    </span>
+                  </div>
+                </motion.button>
+              ))}
+             </div>
+             
+             <div className="text-xs font-mono">
+                WORK THAT WORKS!<br/>
+                ©2026 TASHI TECH
+             </div>
           </motion.div>
         )}
       </AnimatePresence>
