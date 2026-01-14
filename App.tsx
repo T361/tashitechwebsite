@@ -8,7 +8,7 @@ import ServicesView from './components/ServicesView';
 import AboutView from './components/AboutView';
 import ContactView from './components/ContactView';
 import RippleBackground from './components/RippleBackground';
-import MoleculeBackground from './components/MoleculeBackground';
+import CosmicBackground from './components/CosmicBackground';
 import Lenis from 'lenis';
 
 const App: React.FC = () => {
@@ -17,12 +17,12 @@ const App: React.FC = () => {
   useEffect(() => {
     // Ultra-smooth scroll configuration
     const lenis = new Lenis({
-      duration: 2.0, // Increased for more "weight" and smoothness
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+      duration: 2.0,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.7, // Lower multiplier for finer control
+      wheelMultiplier: 0.7,
       touchMultiplier: 2,
     });
 
@@ -55,10 +55,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col font-sans relative selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col font-sans relative selection:bg-white selection:text-black overflow-x-hidden">
       {/* Global Background Layers */}
+      <CosmicBackground />
       <RippleBackground />
-      <MoleculeBackground />
       
       <Header currentView={currentView} onViewChange={setCurrentView} />
       
