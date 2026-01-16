@@ -8,23 +8,23 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
   return (
-    <footer className="bg-transparent text-white pt-20 border-t border-white/10 overflow-hidden relative z-10">
-      <div className="container mx-auto px-6 md:px-12 mb-20">
+    <footer className="bg-transparent text-white pt-16 md:pt-20 border-t border-white/10 overflow-hidden relative z-10">
+      <div className="container mx-auto px-6 md:px-12 mb-12 md:mb-20">
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-               <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-8 text-gray-500">Index</h4>
+               <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 md:mb-8 text-gray-500">Index</h4>
                <ul className="space-y-4 font-mono text-sm text-gray-400">
                   <li onClick={() => onViewChange('about')} className="cursor-pointer hover:text-white hover:pl-2 transition-all duration-300">Manifesto</li>
                   <li onClick={() => onViewChange('services')} className="cursor-pointer hover:text-white hover:pl-2 transition-all duration-300">Solutions</li>
                   <li onClick={() => onViewChange('contact')} className="cursor-pointer hover:text-white hover:pl-2 transition-all duration-300">Contact</li>
                </ul>
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between gap-8 md:gap-0">
                <div>
-                 <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-8 text-gray-500">Global Presence</h4>
+                 <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 md:mb-8 text-gray-500">Global Presence</h4>
                  <p className="font-mono text-sm text-gray-400">Islamabad / Remote</p>
                </div>
-               <div className="mt-12">
+               <div className="mt-4 md:mt-12">
                   <button onClick={() => onViewChange('contact')} className="group flex items-center gap-4 text-xl font-bold uppercase tracking-tight text-white">
                      <span className="group-hover:tracking-widest transition-all duration-500">Start Project</span>
                      <div className="w-8 h-8 bg-white text-black flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">
@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
          </h1>
       </div>
       
-      <div className="bg-black/50 backdrop-blur-md text-gray-500 py-6 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono uppercase border-t border-white/5 gap-4">
+      <div className="bg-black/50 backdrop-blur-md text-gray-500 py-6 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono uppercase border-t border-white/5 gap-4 text-center md:text-left">
          <div className="flex gap-4">
             <span>Tashi Technologies Corp.</span>
          </div>

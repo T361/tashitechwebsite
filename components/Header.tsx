@@ -17,10 +17,44 @@ const navItems: NavItem[] = [
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Animation Variants for smoother orchestration
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      clipPath: 'inset(0 0 100% 0)',
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      }
+    },
+    open: {
+      opacity: 1,
+      clipPath: 'inset(0 0 0 0)',
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+        delayChildren: 0.2,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    closed: { y: 40, opacity: 0 },
+    open: { 
+      y: 0, 
+      opacity: 1,
+      transition: { 
+        duration: 0.5, 
+        ease: "easeOut" 
+      }
+    }
+  };
+
   return (
     <>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50 h-24 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-[2px] flex items-center justify-between px-6 lg:px-12"
+        className="fixed top-0 left-0 right-0 z-50 h-20 md:h-24 bg-gradient-to-b from-black/90 to-transparent backdrop-blur-[2px] flex items-center justify-between px-6 lg:px-12 pointer-events-auto"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -80,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden p-2 border border-white/20 bg-black/50 backdrop-blur-md text-white rounded-full"
+          className="md:hidden p-2 border border-white/20 bg-black/50 backdrop-blur-md text-white rounded-full z-50 relative"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -91,39 +125,50 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0 0 0 0)' }}
-            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-black flex flex-col justify-between pt-32 pb-12 px-6 md:hidden"
+            variants={menuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            className="fixed inset-0 z-40 bg-black flex flex-col justify-between pt-32 pb-12 px-6 md:hidden overflow-hidden"
           >
-             <div className="flex flex-col gap-4">
+             {/* Background Grid Effect for Mobile Menu */}
+             <div className="absolute inset-0 grid grid-cols-4 pointer-events-none opacity-20">
+                <div className="border-r border-white/10 h-full"></div>
+                <div className="border-r border-white/10 h-full"></div>
+                <div className="border-r border-white/10 h-full"></div>
+             </div>
+
+             <div className="flex flex-col gap-6 relative z-10">
                {navItems.map((item, i) => (
                 <motion.button
                   key={item.id}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.1 }}
+                  variants={itemVariants}
                   onClick={() => {
                     onViewChange(item.id);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full text-left py-4 border-b border-white/10 group"
+                  className="w-full text-left py-4 border-b border-white/10 group relative overflow-hidden"
                 >
                   <div className="flex items-baseline gap-4 text-white">
                     <span className="font-mono text-xs text-tashi-blue">0{i + 1}</span>
-                    <span className="text-4xl font-black font-tight uppercase tracking-tighter group-hover:pl-4 transition-all duration-300">
+                    <span className="text-5xl font-black font-tight uppercase tracking-tighter group-hover:pl-4 transition-all duration-300">
                       {item.label}
                     </span>
                   </div>
+                  {/* Hover effect bar */}
+                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-tashi-blue transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
                 </motion.button>
               ))}
              </div>
              
-             <div className="text-xs font-mono text-gray-500">
+             <motion.div 
+                variants={itemVariants}
+                className="text-xs font-mono text-gray-500 relative z-10"
+             >
+                <div className="mb-4 w-12 h-[1px] bg-tashi-blue"></div>
                 WORK THAT WORKS!<br/>
                 TASHI TECHNOLOGIES CORP.
-             </div>
+             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
