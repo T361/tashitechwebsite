@@ -9,6 +9,7 @@ import AboutView from './components/AboutView';
 import ContactView from './components/ContactView';
 import RippleBackground from './components/RippleBackground';
 import CosmicBackground from './components/CosmicBackground';
+import NoiseOverlay from './components/NoiseOverlay';
 import Lenis from 'lenis';
 
 const App: React.FC = () => {
@@ -17,12 +18,12 @@ const App: React.FC = () => {
   useEffect(() => {
     // Ultra-smooth scroll configuration
     const lenis = new Lenis({
-      duration: 2.0,
+      duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.7,
+      wheelMultiplier: 0.8,
       touchMultiplier: 2,
     });
 
@@ -59,6 +60,7 @@ const App: React.FC = () => {
       {/* Global Background Layers */}
       <CosmicBackground />
       <RippleBackground />
+      <NoiseOverlay />
       
       <Header currentView={currentView} onViewChange={setCurrentView} />
       
@@ -69,7 +71,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, filter: 'blur(10px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(10px)' }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="w-full"
           >
             {renderView()}

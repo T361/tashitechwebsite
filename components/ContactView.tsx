@@ -9,43 +9,42 @@ const ContactView: React.FC = () => {
       <div className="container mx-auto px-6 max-w-5xl text-center relative z-10">
         
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="bg-black/40 backdrop-blur-xl p-12 md:p-24 border border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
+          className="bg-white/[0.02] backdrop-blur-xl p-12 md:p-24 border border-white/10 relative overflow-hidden group hover:border-tashi-blue/30 transition-colors duration-500"
         >
+          {/* Subtle Glow Behind */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-tashi-blue opacity-[0.05] blur-[100px] pointer-events-none group-hover:opacity-10 transition-opacity duration-500"></div>
+
           {/* Corner Marks */}
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white"></div>
-          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white"></div>
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white"></div>
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white"></div>
+          <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/50 group-hover:border-tashi-blue transition-colors"></div>
+          <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-white/50 group-hover:border-tashi-blue transition-colors"></div>
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-white/50 group-hover:border-tashi-blue transition-colors"></div>
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/50 group-hover:border-tashi-blue transition-colors"></div>
 
-          <div className="inline-block mb-8 px-3 py-1 bg-white text-black text-[10px] font-mono uppercase tracking-widest">
-            Comms_Channel_Open
-          </div>
-
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+          <h1 className="text-5xl md:text-8xl font-black font-tight tracking-tighter mb-8 text-white">
             <ScrambleText text="INITIATE UPLINK" />
           </h1>
           
-          <p className="text-lg md:text-xl font-light text-gray-300 mb-16 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl font-light text-gray-400 mb-16 max-w-2xl mx-auto">
             Ready to deploy verifiable agents? Our engineers are standing by on secure channels.
           </p>
 
           <a 
             href="mailto:hr@tashitc.com"
-            className="group relative inline-flex items-center gap-4 text-2xl md:text-4xl font-bold border border-white px-8 py-6 hover:bg-white hover:text-black transition-all duration-300 text-white"
+            className="group relative inline-flex items-center gap-4 text-2xl md:text-4xl font-bold font-tight border border-white/20 px-10 py-8 hover:bg-tashi-blue hover:border-tashi-blue hover:text-white transition-all duration-300 text-white overflow-hidden"
           >
             <Mail size={32} strokeWidth={1.5} />
-            <span>hr@tashitc.com</span>
-            <ArrowRight size={32} strokeWidth={1.5} className="group-hover:translate-x-2 transition-transform" />
+            <span className="relative z-10">hr@tashitc.com</span>
+            <ArrowRight size={32} strokeWidth={1.5} className="group-hover:translate-x-2 transition-transform relative z-10" />
             
             {/* Button Glitch Element */}
-            <div className="absolute inset-0 bg-white translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300 z-[-1]"></div>
+            <div className="absolute inset-0 bg-tashi-blue translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 z-0"></div>
           </a>
 
           <div className="mt-20 flex justify-center text-center border-t border-white/10 pt-12">
-            <div className="grid grid-cols-2 gap-12 text-left">
+            <div className="grid grid-cols-2 gap-16 text-left">
               <div>
                 <h4 className="font-bold uppercase tracking-widest mb-2 text-[10px] text-gray-500">Headquarters</h4>
                 <p className="text-sm font-mono text-gray-300">Islamabad, Pakistan</p>

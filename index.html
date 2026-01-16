@@ -21,6 +21,8 @@
               tashi: {
                 black: '#000000',
                 white: '#FFFFFF',
+                blue: '#0055FF', // New Brand Blue
+                accent: '#0044CC',
                 gray: '#F5F5F5',
                 border: '#000000',
               }
@@ -28,6 +30,7 @@
             animation: {
               'marquee': 'marquee 25s linear infinite',
               'marquee-reverse': 'marqueeReverse 25s linear infinite',
+              'scan': 'scan 2s linear infinite',
             },
             keyframes: {
               marquee: {
@@ -37,6 +40,10 @@
               marqueeReverse: {
                 '0%': { transform: 'translateX(-100%)' },
                 '100%': { transform: 'translateX(0%)' },
+              },
+              scan: {
+                '0%': { transform: 'translateY(-100%)' },
+                '100%': { transform: 'translateY(200%)' },
               }
             }
           }
@@ -51,8 +58,8 @@
         -webkit-font-smoothing: antialiased;
       }
       ::selection {
-        background-color: #FFFFFF;
-        color: #000000;
+        background-color: #0055FF; /* Tashi Blue Selection */
+        color: #FFFFFF;
       }
       /* Hide scrollbar for Chrome, Safari and Opera */
       .no-scrollbar::-webkit-scrollbar {
@@ -92,7 +99,8 @@
     "react": "https://esm.sh/react@^19.2.3",
     "framer-motion": "https://esm.sh/framer-motion@^12.25.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "lenis": "https://esm.sh/lenis@1.1.5"
+    "lenis": "https://esm.sh/lenis@1.1.5",
+    "three": "https://esm.sh/three@0.160.0"
   }
 }
 </script>

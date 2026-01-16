@@ -23,32 +23,42 @@ const RippleBackground: React.FC = () => {
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
       
-      const lines = 25;
-      const verticalSpread = height * 0.7; 
-      const startY = height * 0.15; 
+      const lines = 40; 
+      const verticalSpread = height * 0.8; 
+      const startY = height * 0.1; 
       
       for (let i = 0; i < lines; i++) {
         ctx.beginPath();
         
         const yBase = startY + (i / lines) * verticalSpread;
         
-        // Opacity gradient for depth
+        // Depth logic
         const centerDist = Math.abs(i - lines / 2) / (lines / 2);
-        const opacity = (1 - centerDist) * 0.2 + 0.05;
+        const opacity = (1 - centerDist) * 0.4 + 0.1;
         
-        // Glowing cyan/white color
-        ctx.strokeStyle = `rgba(200, 230, 255, ${opacity})`;
-        ctx.lineWidth = 1;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = `rgba(100, 200, 255, ${opacity})`;
+        // Brand Color Gradient Logic (Blue/Cyan/Indigo)
+        // Hue 210 (Blue) to 240 (Deep Blue)
+        const hue = 210 + Math.sin(time * 0.5 + i * 0.1) * 30; 
+        
+        const gradient = ctx.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop(0, `hsla(${hue}, 80%, 50%, ${opacity * 0.5})`);
+        gradient.addColorStop(0.5, `hsla(${hue + 20}, 90%, 60%, ${opacity})`);
+        gradient.addColorStop(1, `hsla(${hue - 20}, 80%, 50%, ${opacity * 0.5})`);
 
-        for (let x = 0; x <= width; x += 10) {
-          const noise = Math.sin(x * 0.05 + time) * 2;
-          const w1 = Math.sin(x * 0.003 + time * 0.5 + i * 0.2);
-          const w2 = Math.sin(x * 0.01 - time * 0.2 + i * 0.1); 
-          const amp = 30 + Math.sin(time * 0.5) * 20;
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1.5;
+        
+        // Enhanced Blue Glow
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = `hsla(${hue}, 100%, 50%, ${opacity * 0.8})`;
 
-          const yOffset = (w1 + w2) * amp * 0.6 + noise;
+        // Wave Logic
+        for (let x = 0; x <= width; x += 5) {
+          const w1 = Math.sin(x * 0.002 + time * 0.8 + i * 0.1);
+          const w2 = Math.sin(x * 0.008 - time * 1.5 + i * 0.2); 
+          const noise = Math.cos(x * 0.02 + time) * 5;
+          const amp = 40 + Math.sin(time * 0.5) * 20;
+          const yOffset = (w1 + w2) * amp * 0.8 + noise;
           
           if (x === 0) ctx.moveTo(x, yBase + yOffset);
           else ctx.lineTo(x, yBase + yOffset);
@@ -56,7 +66,7 @@ const RippleBackground: React.FC = () => {
         ctx.stroke();
       }
 
-      time += 0.008;
+      time += 0.015;
       animationFrameId = requestAnimationFrame(draw);
     };
 
@@ -71,7 +81,7 @@ const RippleBackground: React.FC = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="fixed inset-0 w-full h-full pointer-events-none z-[1] mix-blend-screen"
+      className="fixed inset-0 w-full h-full pointer-events-none z-[1] mix-blend-screen opacity-80"
     />
   );
 };
