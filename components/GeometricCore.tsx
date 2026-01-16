@@ -10,10 +10,12 @@ const GeometricCore: React.FC = () => {
     // Scene Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    // Enable high-performance mode
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
     
+    // Performance optimization: Cap pixel ratio to 1.5 to save GPU on high-DPI screens
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
 
     // Geometries
@@ -44,9 +46,10 @@ const GeometricCore: React.FC = () => {
     const mesh3 = new THREE.Mesh(geo3, mat3);
     group.add(mesh3);
     
-    // Floating Particles
+    // Floating Particles - Reduced count for mobile
+    const isMobile = window.innerWidth < 768;
     const particlesGeo = new THREE.BufferGeometry();
-    const particleCount = 200;
+    const particleCount = isMobile ? 80 : 200;
     const posArray = new Float32Array(particleCount * 3);
     
     for(let i = 0; i < particleCount * 3; i++) {
@@ -70,11 +73,15 @@ const GeometricCore: React.FC = () => {
     let mouseY = 0;
     
     const handleMouseMove = (event: MouseEvent) => {
+        // Optimization: Normalize coords
         mouseX = (event.clientX / window.innerWidth) * 2 - 1;
         mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
     };
     
-    window.addEventListener('mousemove', handleMouseMove);
+    // Only add mouse listener on non-touch devices or treat carefully
+    if (!isMobile) {
+        window.addEventListener('mousemove', handleMouseMove);
+    }
 
     // Resize Handler
     const handleResize = () => {
@@ -85,22 +92,24 @@ const GeometricCore: React.FC = () => {
     window.addEventListener('resize', handleResize);
 
     // Animation Loop
+    let animationId: number;
     const animate = () => {
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
 
-      // Rotations
+      // Constant rotations - slightly slower for smoother feel
       mesh1.rotation.x += 0.001;
       mesh1.rotation.y += 0.001;
 
-      mesh2.rotation.x -= 0.002;
-      mesh2.rotation.y -= 0.002;
+      mesh2.rotation.x -= 0.0015;
+      mesh2.rotation.y -= 0.0015;
 
-      mesh3.rotation.x += 0.004;
-      mesh3.rotation.y += 0.004;
+      mesh3.rotation.x += 0.002;
+      mesh3.rotation.y += 0.002;
 
       particlesMesh.rotation.y += 0.0005;
 
       // Mouse Parallax with damping
+      // Optimization: smaller interpolation factor
       group.rotation.y += (mouseX * 0.5 - group.rotation.y) * 0.05;
       group.rotation.x += (-mouseY * 0.5 - group.rotation.x) * 0.05;
 
@@ -111,10 +120,13 @@ const GeometricCore: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (mountRef.current) {
+      if (!isMobile) window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationId);
+      if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);
       }
+      
+      // Disposal to prevent memory leaks
       geo1.dispose(); edges1.dispose(); mat1.dispose();
       geo2.dispose(); edges2.dispose(); mat2.dispose();
       geo3.dispose(); mat3.dispose();
