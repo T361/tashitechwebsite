@@ -14,15 +14,9 @@ const navItems: NavItem[] = [
   { id: 'contact', label: 'Company' },
 ];
 
-// --- CONFIGURATION ---
-// 1. If you have an image URL, paste it here to use it instead of the local file.
-//    Example: "https://via.placeholder.com/150"
-const LOGO_URL = "/logo.png"; 
-
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [logoError, setLogoError] = useState(false);
 
   return (
     <>
@@ -41,50 +35,25 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
         }}
       >
         <div className="container mx-auto px-6 h-full flex items-center justify-between">
-          {/* Logo Section */}
+          {/* --- LOGO SECTION (IMAGE FILE) --- */}
           <div 
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center cursor-pointer select-none"
             onClick={() => onViewChange('home')}
           >
             <motion.div 
-              className="flex items-center justify-center text-black relative"
+              className="relative flex items-center justify-center"
               animate={{ 
-                width: isHovered ? 48 : 40, // Slightly larger logo area
-                height: isHovered ? 48 : 40 
+                height: isHovered ? 48 : 32 // Grows slightly on hover
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              {!logoError ? (
-                <img 
-                  src={LOGO_URL} 
-                  alt="Logo" 
-                  className="w-full h-full object-contain"
-                  onError={() => {
-                    console.warn("Logo image failed to load. Falling back to SVG.");
-                    setLogoError(true);
-                  }}
-                />
-              ) : (
-                /* --- FALLBACK SVG LOGO --- */
-                /* Replace the SVG content below to change the fallback icon */
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <rect width="100" height="100" rx="25" fill="black" />
-                  
-                  {/* The "T" Shape - Delete this <path> and paste your own SVG path here if needed */}
-                  <path 
-                    d="M32 32H68C69.1046 32 70 32.8954 70 34V44C70 45.1046 69.1046 46 68 46H56V68C56 69.1046 55.1046 70 54 70H46C44.8954 70 44 69.1046 44 68V46H32C30.8954 46 30 45.1046 30 44V34C30 32.8954 30.8954 32 32 32Z" 
-                    fill="white" 
-                  />
-                </svg>
-              )}
+              {/* THIS IS THE IMAGE TAG - IT LOOKS FOR public/logo.png */}
+              <img 
+                src="/logo.png" 
+                alt="Tashi Logo" 
+                className="h-full w-auto object-contain"
+              />
             </motion.div>
-            
-            <motion.span 
-              className="font-bold tracking-tight font-tight text-black"
-              animate={{ fontSize: isHovered ? '1.5rem' : '1.25rem' }}
-            >
-              TASHI
-            </motion.span>
           </div>
 
           {/* Desktop Nav */}
