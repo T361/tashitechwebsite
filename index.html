@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <link rel="icon" type="image/png" href="/logo.png" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <title>TASHI</title>
 
@@ -29,6 +30,15 @@
                 gray: '#F3F4F6',
                 border: '#E5E7EB',
               }
+            },
+            animation: {
+              'marquee': 'marquee 40s linear infinite',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              }
             }
           }
         }
@@ -41,10 +51,40 @@
         font-family: 'Inter', sans-serif;
         -webkit-font-smoothing: antialiased;
       }
+      ::selection {
+        background-color: #000000;
+        color: #FFFFFF;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      html.lenis, html.lenis body {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+      }
     </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "framer-motion": "https://esm.sh/framer-motion@^12.25.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "lenis": "https://esm.sh/lenis@1.1.5",
+    "three": "https://esm.sh/three@^0.182.0"
+  }
+}
+</script>
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
