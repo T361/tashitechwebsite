@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tashi Technologies | The Architecture of Truth</title>
+    <title>Tashi Technologies | Enterprise AI Infrastructure</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -21,29 +21,18 @@
               tashi: {
                 black: '#000000',
                 white: '#FFFFFF',
-                blue: '#0055FF', // New Brand Blue
-                accent: '#0044CC',
-                gray: '#F5F5F5',
-                border: '#000000',
+                blue: '#0055FF', 
+                gray: '#F3F4F6',
+                border: '#E5E7EB',
               }
             },
             animation: {
-              'marquee': 'marquee 25s linear infinite',
-              'marquee-reverse': 'marqueeReverse 25s linear infinite',
-              'scan': 'scan 2s linear infinite',
+              'marquee': 'marquee 40s linear infinite',
             },
             keyframes: {
               marquee: {
                 '0%': { transform: 'translateX(0%)' },
                 '100%': { transform: 'translateX(-100%)' },
-              },
-              marqueeReverse: {
-                '0%': { transform: 'translateX(-100%)' },
-                '100%': { transform: 'translateX(0%)' },
-              },
-              scan: {
-                '0%': { transform: 'translateY(-100%)' },
-                '100%': { transform: 'translateY(200%)' },
               }
             }
           }
@@ -52,43 +41,27 @@
     </script>
     <style>
       body {
-        background-color: #000000;
-        color: #FFFFFF;
+        background-color: #FFFFFF;
+        color: #000000;
         font-family: 'Inter', sans-serif;
         -webkit-font-smoothing: antialiased;
       }
       ::selection {
-        background-color: #0055FF; /* Tashi Blue Selection */
+        background-color: #000000;
         color: #FFFFFF;
       }
-      /* Hide scrollbar for Chrome, Safari and Opera */
       .no-scrollbar::-webkit-scrollbar {
           display: none;
       }
-      /* Hide scrollbar for IE, Edge and Firefox */
       .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
       }
-      
       html.lenis, html.lenis body {
         height: auto;
       }
-      
       .lenis.lenis-smooth {
         scroll-behavior: auto !important;
-      }
-      
-      .lenis.lenis-smooth [data-lenis-prevent] {
-        overscroll-behavior: contain;
-      }
-      
-      .lenis.lenis-stopped {
-        overflow: hidden;
-      }
-      
-      .lenis.lenis-scrolling iframe {
-        pointer-events: none;
       }
     </style>
   <script type="importmap">
@@ -100,7 +73,7 @@
     "framer-motion": "https://esm.sh/framer-motion@^12.25.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "lenis": "https://esm.sh/lenis@1.1.5",
-    "three": "https://esm.sh/three@0.160.0"
+    "three": "https://esm.sh/three@^0.182.0"
   }
 }
 </script>

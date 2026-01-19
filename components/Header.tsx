@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { ViewState, NavItem } from '../types';
 
 interface HeaderProps {
@@ -9,166 +9,140 @@ interface HeaderProps {
 }
 
 const navItems: NavItem[] = [
-  { id: 'about', label: 'MANIFESTO' },
-  { id: 'services', label: 'SOLUTIONS' },
-  { id: 'contact', label: 'CONTACT' },
+  { id: 'services', label: 'Platform' },
+  { id: 'about', label: 'Solutions' },
+  { id: 'contact', label: 'Company' },
 ];
 
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Animation Variants for smoother orchestration
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      clipPath: 'inset(0 0 100% 0)',
-      transition: {
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1],
-      }
-    },
-    open: {
-      opacity: 1,
-      clipPath: 'inset(0 0 0 0)',
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-        delayChildren: 0.2,
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    closed: { y: 40, opacity: 0 },
-    open: { 
-      y: 0, 
-      opacity: 1,
-      transition: { 
-        duration: 0.5, 
-        ease: "easeOut" 
-      }
-    }
-  };
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
-      <motion.header
-        className="fixed top-0 left-0 right-0 z-50 h-20 md:h-24 bg-gradient-to-b from-black/90 to-transparent backdrop-blur-[2px] flex items-center justify-between px-6 lg:px-12 pointer-events-auto"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      <motion.header 
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        initial={{ height: '4rem' }} // Start compact
+        animate={{ 
+          height: isHovered || isMobileMenuOpen ? '6rem' : '4rem', // Grow on hover
+        }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 260, 
+          damping: 20 
+        }}
       >
-        {/* Logo Area */}
-        <div 
-          className="flex items-center gap-4 cursor-pointer group"
-          onClick={() => onViewChange('home')}
-        >
-          <div className="w-10 h-10 bg-white text-black flex items-center justify-center relative overflow-hidden rounded-sm hover:rounded-xl transition-all duration-500">
-             {/* Integrated Blue Dot Logo */}
-             <div className="w-4 h-4 bg-tashi-blue rounded-full z-10 shadow-[0_0_10px_#0055FF]"></div>
+        <div className="container mx-auto px-6 h-full flex items-center justify-between">
+          {/* Logo */}
+          <div 
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => onViewChange('home')}
+          >
+            <motion.div 
+              className="flex items-center justify-center text-black"
+              animate={{ 
+                width: isHovered ? 44 : 36, 
+                height: isHovered ? 44 : 36 
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              {/* Inline SVG Logo - No upload required */}
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                <defs>
+                  <linearGradient id="logoGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#0055FF" />
+                    <stop offset="1" stopColor="#000000" />
+                  </linearGradient>
+                </defs>
+                <rect width="100" height="100" rx="28" fill="black" />
+                {/* Stylized T Shape */}
+                <path d="M32 32H68C69.1046 32 70 32.8954 70 34V44C70 45.1046 69.1046 46 68 46H56V68C56 69.1046 55.1046 70 54 70H46C44.8954 70 44 69.1046 44 68V46H32C30.8954 46 30 45.1046 30 44V34C30 32.8954 30.8954 32 32 32Z" fill="white" />
+              </svg>
+            </motion.div>
+            <motion.span 
+              className="font-bold tracking-tight font-tight text-black"
+              animate={{ fontSize: isHovered ? '1.5rem' : '1.25rem' }}
+            >
+              TASHI
+            </motion.span>
           </div>
-          <div className="flex flex-col leading-none text-white">
-            <span className="font-black font-tight text-xl tracking-tighter uppercase">TASHI</span>
-            <span className="text-[0.6rem] font-mono tracking-widest uppercase text-gray-400 group-hover:text-tashi-blue transition-colors">Technologies</span>
-          </div>
-        </div>
 
-        {/* Desktop Nav - Editorial Style */}
-        <nav className="hidden md:flex items-center gap-12">
-          {navItems.map((item, idx) => {
-            const isActive = currentView === item.id;
-            return (
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => onViewChange(item.id)}
-                className="relative group flex items-start gap-1"
+                className="text-sm font-medium text-gray-600 hover:text-black transition-colors"
               >
-                <span className="text-[10px] font-mono -mt-1 text-gray-500 transition-colors group-hover:text-tashi-blue">{`0${idx + 1}`}</span>
-                <span className={`text-sm font-bold tracking-widest uppercase transition-all duration-300 font-tight ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>
-                   {item.label}
-                </span>
-                {isActive && (
-                  <motion.div 
-                    layoutId="underline" 
-                    className="absolute left-0 -bottom-2 w-full h-[1px] bg-tashi-blue shadow-[0_0_8px_#0055FF]" 
-                  />
-                )}
+                {item.label}
               </button>
-            );
-          })}
-        </nav>
+            ))}
+          </nav>
 
-        {/* Right Side Tagline */}
-        <div className="hidden md:flex items-center gap-6">
-           <div className="text-right text-white">
-              <div className="text-xs font-black font-tight uppercase tracking-tight">WORK THAT WORKS!</div>
-           </div>
-           <button 
-             onClick={() => onViewChange('contact')}
-             className="w-12 h-12 border border-white/20 text-white flex items-center justify-center rounded-full hover:bg-tashi-blue hover:border-tashi-blue hover:text-white transition-all duration-300 hover:scale-105"
-           >
-             <ArrowUpRight size={20} />
-           </button>
+          {/* Right Actions */}
+          <div className="hidden md:flex items-center gap-4">
+            <motion.button 
+              onClick={() => onViewChange('contact')}
+              className="bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors shadow-sm"
+              animate={{ 
+                paddingLeft: isHovered ? 24 : 20,
+                paddingRight: isHovered ? 24 : 20,
+                paddingTop: isHovered ? 12 : 10,
+                paddingBottom: isHovered ? 12 : 10,
+                fontSize: isHovered ? '0.95rem' : '0.875rem'
+              }}
+            >
+              Get Started
+            </motion.button>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button 
+            className="md:hidden p-2 text-black"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden p-2 border border-white/20 bg-black/50 backdrop-blur-md text-white rounded-full z-50 relative"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            variants={menuVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            className="fixed inset-0 z-40 bg-black flex flex-col justify-between pt-32 pb-12 px-6 md:hidden overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 top-0 z-[45] bg-white pt-28 px-6 md:hidden"
           >
-             {/* Background Grid Effect for Mobile Menu */}
-             <div className="absolute inset-0 grid grid-cols-4 pointer-events-none opacity-20">
-                <div className="border-r border-white/10 h-full"></div>
-                <div className="border-r border-white/10 h-full"></div>
-                <div className="border-r border-white/10 h-full"></div>
-             </div>
-
-             <div className="flex flex-col gap-6 relative z-10">
-               {navItems.map((item, i) => (
-                <motion.button
+             <div className="flex flex-col gap-6">
+               {navItems.map((item) => (
+                <button
                   key={item.id}
-                  variants={itemVariants}
                   onClick={() => {
                     onViewChange(item.id);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full text-left py-4 border-b border-white/10 group relative overflow-hidden"
+                  className="text-left text-lg font-medium text-black py-2 border-b border-gray-100"
                 >
-                  <div className="flex items-baseline gap-4 text-white">
-                    <span className="font-mono text-xs text-tashi-blue">0{i + 1}</span>
-                    <span className="text-5xl font-black font-tight uppercase tracking-tighter group-hover:pl-4 transition-all duration-300">
-                      {item.label}
-                    </span>
-                  </div>
-                  {/* Hover effect bar */}
-                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-tashi-blue transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-                </motion.button>
+                  {item.label}
+                </button>
               ))}
+              <div className="flex flex-col gap-4 mt-4">
+                <button 
+                  onClick={() => {
+                    onViewChange('contact');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full py-3 text-center bg-black text-white rounded-lg font-medium"
+                >
+                  Get Started
+                </button>
+              </div>
              </div>
-             
-             <motion.div 
-                variants={itemVariants}
-                className="text-xs font-mono text-gray-500 relative z-10"
-             >
-                <div className="mb-4 w-12 h-[1px] bg-tashi-blue"></div>
-                WORK THAT WORKS!<br/>
-                TASHI TECHNOLOGIES CORP.
-             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

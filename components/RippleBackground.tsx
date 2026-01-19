@@ -6,15 +6,13 @@ const RippleBackground: React.FC = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d', { alpha: true }); // optimize
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animationFrameId: number;
     let time = 0;
     
-    // Device detection for performance tuning
     const isMobile = window.innerWidth < 768;
-    // Reduce complexity significantly on mobile
     const lines = isMobile ? 20 : 40; 
     const xStep = isMobile ? 10 : 4; 
     const maxDpr = 1.5;
@@ -27,10 +25,9 @@ const RippleBackground: React.FC = () => {
     };
     
     window.addEventListener('resize', resize);
-    resize(); // Initial sizing
+    resize();
 
     const draw = () => {
-      // Clear with offset/height not canvas.width (which is scaled)
       const width = canvas.offsetWidth;
       const height = canvas.offsetHeight;
       
@@ -46,26 +43,20 @@ const RippleBackground: React.FC = () => {
         
         // Depth logic
         const centerDist = Math.abs(i - lines / 2) / (lines / 2);
-        const opacity = (1 - centerDist) * 0.4 + 0.1;
+        // Subtle gray opacity
+        const opacity = (1 - centerDist) * 0.15 + 0.05;
         
-        // Brand Color Gradient Logic
-        const hue = 210 + Math.sin(time * 0.5 + i * 0.1) * 30; 
-        
+        // Monochrome Gradient (Gray)
         const gradient = ctx.createLinearGradient(0, 0, width, 0);
-        gradient.addColorStop(0, `hsla(${hue}, 80%, 50%, ${opacity * 0.5})`);
-        gradient.addColorStop(0.5, `hsla(${hue + 20}, 90%, 60%, ${opacity})`);
-        gradient.addColorStop(1, `hsla(${hue - 20}, 80%, 50%, ${opacity * 0.5})`);
+        gradient.addColorStop(0, `rgba(0, 0, 0, ${opacity * 0.3})`);
+        gradient.addColorStop(0.5, `rgba(0, 0, 0, ${opacity})`);
+        gradient.addColorStop(1, `rgba(0, 0, 0, ${opacity * 0.3})`);
 
         ctx.strokeStyle = gradient;
         ctx.lineWidth = 1.5;
         
-        // Enhanced Blue Glow - Expensive on mobile, reduce blur radius or skip
-        if (!isMobile) {
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = `hsla(${hue}, 100%, 50%, ${opacity * 0.8})`;
-        } else {
-            ctx.shadowBlur = 0; // Disable shadow on mobile for performance
-        }
+        // No shadow for clean look
+        ctx.shadowBlur = 0;
 
         // Wave Logic
         for (let x = 0; x <= width; x += xStep) {
@@ -96,7 +87,7 @@ const RippleBackground: React.FC = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="fixed inset-0 w-full h-full pointer-events-none z-[1] mix-blend-screen opacity-80"
+      className="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-60"
     />
   );
 };
