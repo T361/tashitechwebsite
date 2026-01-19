@@ -14,6 +14,11 @@ const navItems: NavItem[] = [
   { id: 'contact', label: 'Company' },
 ];
 
+// --- CONFIGURATION ---
+// 1. If you have an image URL, paste it here to use it instead of the local file.
+//    Example: "https://via.placeholder.com/150"
+const LOGO_URL = "/logo.png"; 
+
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -25,9 +30,9 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
         className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        initial={{ height: '4rem' }} // Start compact
+        initial={{ height: '4rem' }} 
         animate={{ 
-          height: isHovered || isMobileMenuOpen ? '6rem' : '4rem', // Grow on hover
+          height: isHovered || isMobileMenuOpen ? '6rem' : '4rem', 
         }}
         transition={{ 
           type: "spring", 
@@ -36,40 +41,44 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
         }}
       >
         <div className="container mx-auto px-6 h-full flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo Section */}
           <div 
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer"
             onClick={() => onViewChange('home')}
           >
             <motion.div 
-              className="flex items-center justify-center text-black"
+              className="flex items-center justify-center text-black relative"
               animate={{ 
-                width: isHovered ? 44 : 36, 
-                height: isHovered ? 44 : 36 
+                width: isHovered ? 48 : 40, // Slightly larger logo area
+                height: isHovered ? 48 : 40 
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {!logoError ? (
                 <img 
-                  src="/logo.png" 
-                  alt="TASHI" 
+                  src={LOGO_URL} 
+                  alt="Logo" 
                   className="w-full h-full object-contain"
-                  onError={() => setLogoError(true)}
+                  onError={() => {
+                    console.warn("Logo image failed to load. Falling back to SVG.");
+                    setLogoError(true);
+                  }}
                 />
               ) : (
-                /* Fallback SVG Logo if logo.png is not found */
+                /* --- FALLBACK SVG LOGO --- */
+                /* Replace the SVG content below to change the fallback icon */
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <defs>
-                    <linearGradient id="logoGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#0055FF" />
-                      <stop offset="1" stopColor="#000000" />
-                    </linearGradient>
-                  </defs>
-                  <rect width="100" height="100" rx="28" fill="black" />
-                  <path d="M32 32H68C69.1046 32 70 32.8954 70 34V44C70 45.1046 69.1046 46 68 46H56V68C56 69.1046 55.1046 70 54 70H46C44.8954 70 44 69.1046 44 68V46H32C30.8954 46 30 45.1046 30 44V34C30 32.8954 30.8954 32 32 32Z" fill="white" />
+                  <rect width="100" height="100" rx="25" fill="black" />
+                  
+                  {/* The "T" Shape - Delete this <path> and paste your own SVG path here if needed */}
+                  <path 
+                    d="M32 32H68C69.1046 32 70 32.8954 70 34V44C70 45.1046 69.1046 46 68 46H56V68C56 69.1046 55.1046 70 54 70H46C44.8954 70 44 69.1046 44 68V46H32C30.8954 46 30 45.1046 30 44V34C30 32.8954 30.8954 32 32 32Z" 
+                    fill="white" 
+                  />
                 </svg>
               )}
             </motion.div>
+            
             <motion.span 
               className="font-bold tracking-tight font-tight text-black"
               animate={{ fontSize: isHovered ? '1.5rem' : '1.25rem' }}
