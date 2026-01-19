@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { ViewState, NavItem } from '../types';
-import logo from '../logo.png';
 
 interface HeaderProps {
   currentView: ViewState;
@@ -18,7 +17,7 @@ const navItems: NavItem[] = [
 const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isImgError, setIsImgError] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   return (
     <>
@@ -50,19 +49,25 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              {/* Try to load the repo image; fall back to text if it fails */}
-              {!isImgError ? (
-                // Use imported image so the bundler serves it correctly
-                // If the image fails to load at runtime, onError flips to the text fallback
-                <img
-                  src={logo}
-                  alt="Tashi logo"
+              {!logoError ? (
+                <img 
+                  src="/logo.png" 
+                  alt="TASHI" 
                   className="w-full h-full object-contain"
-                  onError={() => setIsImgError(true)}
+                  onError={() => setLogoError(true)}
                 />
               ) : (
-                // Failsafe text per request (Nvidia-style)
-                <div className="text-2xl font-black tracking-tighter text-black uppercase select-none cursor-pointer">TASHI</div>
+                /* Fallback SVG Logo if logo.png is not found */
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <defs>
+                    <linearGradient id="logoGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#0055FF" />
+                      <stop offset="1" stopColor="#000000" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="100" height="100" rx="28" fill="black" />
+                  <path d="M32 32H68C69.1046 32 70 32.8954 70 34V44C70 45.1046 69.1046 46 68 46H56V68C56 69.1046 55.1046 70 54 70H46C44.8954 70 44 69.1046 44 68V46H32C30.8954 46 30 45.1046 30 44V34C30 32.8954 30.8954 32 32 32Z" fill="white" />
+                </svg>
               )}
             </motion.div>
             <motion.span 
