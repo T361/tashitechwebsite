@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
         <div className="container mx-auto px-6 h-full flex items-center justify-between">
           {/* --- LOGO SECTION (IMAGE FILE) --- */}
           <div
-            className="flex items-center cursor-pointer select-none gap-3"
+            className="flex items-center cursor-pointer select-none gap-1"
             onClick={() => onViewChange('home')}
             aria-label="Go to home"
             role="button"
@@ -53,8 +53,8 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
               <img src="/logo.png" alt="Tashi Logo" className="h-8 md:h-10 lg:h-12 w-auto object-contain" />
             </motion.div>
 
-            {/* Wordmark to the right of the logo */}
-            <span className="text-sm md:text-base font-bold tracking-tight text-black select-none">TASHI</span>
+            {/* Wordmark to the right of the logo (closer + thicker) */}
+            <span className="-ml-1 text-sm md:text-base font-extrabold tracking-tight text-black select-none">TASHI</span>
           </div>
 
           {/* Desktop Nav */}
