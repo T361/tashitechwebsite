@@ -3,7 +3,7 @@ import { Mail } from 'lucide-react';
 
 const ContactView: React.FC = () => {
   return (
-    <div className="w-full py-24 border-t border-gray-100 relative">
+  <div className="w-full pt-24 pb-12 border-t border-gray-100 relative">
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="bg-black text-white rounded-[2rem] p-12 md:p-24 text-center relative overflow-hidden">
           {/* Abstract Circle decoration */}
