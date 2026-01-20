@@ -36,24 +36,25 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
       >
         <div className="container mx-auto px-6 h-full flex items-center justify-between">
           {/* --- LOGO SECTION (IMAGE FILE) --- */}
-          <div 
-            className="flex items-center cursor-pointer select-none"
+          <div
+            className="flex items-center cursor-pointer select-none gap-3"
             onClick={() => onViewChange('home')}
+            aria-label="Go to home"
+            role="button"
           >
-            <motion.div 
+            <motion.div
               className="relative flex items-center justify-center"
-              animate={{ 
+              animate={{
                 height: isHovered ? 48 : 32 // Grows slightly on hover
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              {/* THIS IS THE IMAGE TAG - IT LOOKS FOR public/logo.png */}
-              <img 
-                src="/logo.png" 
-                alt="Tashi Logo" 
-                className="h-full w-auto object-contain"
-              />
+              {/* logo image (public/logo.png) */}
+              <img src="/logo.png" alt="Tashi Logo" className="h-8 md:h-10 lg:h-12 w-auto object-contain" />
             </motion.div>
+
+            {/* Wordmark to the right of the logo */}
+            <span className="text-sm md:text-base font-bold tracking-tight text-black select-none">TASHI</span>
           </div>
 
           {/* Desktop Nav */}
