@@ -71,10 +71,15 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
 
           {/* Right Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <motion.button 
-              onClick={() => onViewChange('contact')}
+            <motion.button
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // keep view state in sync if parent expects it
+                onViewChange('contact');
+              }}
               className="bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors shadow-sm"
-              animate={{ 
+              animate={{
                 paddingLeft: isHovered ? 24 : 20,
                 paddingRight: isHovered ? 24 : 20,
                 paddingTop: isHovered ? 12 : 10,
@@ -119,8 +124,10 @@ const Header: React.FC<HeaderProps> = ({ currentView, onViewChange }) => {
                 </button>
               ))}
               <div className="flex flex-col gap-4 mt-4">
-                <button 
+                <button
                   onClick={() => {
+                    const el = document.getElementById('contact');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     onViewChange('contact');
                     setIsMobileMenuOpen(false);
                   }}

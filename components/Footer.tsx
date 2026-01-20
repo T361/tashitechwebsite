@@ -1,33 +1,31 @@
 import React from 'react';
-import { ViewState } from '../types';
 
-interface FooterProps {
-  onViewChange: (view: ViewState) => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
+const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-gray-100 text-black pt-16 pb-8 relative z-10 bg-white/50 backdrop-blur-sm">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-start mb-16">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-                 <div className="w-2 h-2 bg-white rounded-full"></div>
-              </div>
-              <span className="text-lg font-bold tracking-tight">TASHI</span>
-            </div>
-            <p className="text-sm text-gray-500 mb-6 max-w-xs">
-              Building the verifiable layer of the agentic web.
-            </p>
-            <div className="text-sm text-gray-400">
-              © 2026 Tashi Technologies Corp.
-            </div>
+    <footer className="w-full bg-white border-t border-gray-100">
+      <div className="container mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-md bg-black flex items-center justify-center">
+            <div className="w-2 h-2 bg-white rounded-full" />
           </div>
+          <span className="text-sm font-semibold tracking-tight text-black">Tashi Technologies Corp.</span>
         </div>
-        
-        <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
-          <p>Designed for performance.</p>
+
+        <div className="text-center text-sm text-gray-500">
+          © 2025 - 2026 Tashi Technologies Corp (Pvt) Ltd
+        </div>
+
+        <div>
+          <a
+            href="#"
+            aria-label="Tashi on X"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-black text-white hover:bg-gray-900 transition-colors"
+          >
+            {/* Minimal X icon (stylized) */}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6.5c-.5.7-1.1 1.3-1.8 1.8 0 .1 0 .1.1.2 1.4-.2 2.5-.6 3-.9-.6.8-1.4 1.5-2.2 1.9-.7.4-1.5.6-2.3.8-.7.2-1.2.3-1.7.5-.5.2-.9.4-1.3.7-.3.3-.6.6-.9 1-.2.3-.4.7-.6 1-.2.3-.4.7-.6 1-.4.8-.9 1.7-1.5 2.4-.6.8-1.4 1.4-2.4 1.6-.9.2-1.9.1-2.7-.3 1.6 1 3.5 1.3 5.4.8 2-.5 3.6-1.8 4.6-3.5.9-1.6 1.2-3.5.8-5.3.8-.6 1.4-1.3 1.9-2.1z" fill="white" fillOpacity="0.98"/>
+            </svg>
+          </a>
         </div>
       </div>
     </footer>
