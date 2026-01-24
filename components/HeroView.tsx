@@ -27,8 +27,15 @@ const HeroView: React.FC = () => {
           zIndex: 1,
         }}
       >
-        {/* Left: Text */}
-        <div style={{ textAlign: "left" }}>
+        {/* Left: Text (shifted right, above ripple) */}
+        <div
+          style={{
+            textAlign: "center",
+            marginLeft: "20%",
+            marginRight: "auto",
+            maxWidth: 600,
+          }}
+        >
           <h1
             style={{
               fontFamily: 'Inter Tight, Inter, Arial, sans-serif',
