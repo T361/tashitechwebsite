@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+// Removed AnimatePresence, motion, Menu, X imports (no mobile menu)
 import { NavItem } from '../types';
 
 const navItems: NavItem[] = [];
@@ -21,7 +20,7 @@ const LogoRow = () => (
 );
 
 const Header: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // Removed mobile menu state
 
   const scrollToTop = () => {
     document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
@@ -56,55 +55,11 @@ const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* --- Mobile Toggle --- */}
-          <button 
-            className="md:hidden p-2 text-black"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* No mobile menu toggle */}
         </div>
       </header>
 
-      {/* --- Mobile Menu Overlay --- */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 top-16 z-40 bg-white pt-12 px-6 md:hidden"
-          >
-             <div className="flex flex-col gap-6">
-               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    const el = document.getElementById(item.id);
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-left text-lg font-medium text-black py-2 border-b border-gray-100"
-                >
-                  {item.label}
-                </button>
-              ))}
-              <div className="flex flex-col gap-4 mt-4">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById('contact');
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full py-3 text-center bg-black text-white rounded-lg font-medium"
-                >
-                  Get Started
-                </button>
-              </div>
-             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* No mobile menu overlay */}
     </>
   );
 };
