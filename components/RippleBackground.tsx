@@ -2,10 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const circles = [
-  { r: 120, delay: 0 },
-  { r: 180, delay: 1 },
-  { r: 240, delay: 2 },
-  { r: 320, delay: 3 },
+  { r: 110, delay: 0, duration: 7 },
+  { r: 150, delay: 1, duration: 8 },
+  { r: 190, delay: 2, duration: 9 },
+  { r: 230, delay: 2.5, duration: 10 },
+  { r: 270, delay: 3, duration: 11 },
+  { r: 310, delay: 3.5, duration: 12 },
+  { r: 350, delay: 4, duration: 13 },
+  { r: 390, delay: 4.5, duration: 14 },
 ];
 
 const RippleBackground: React.FC = () => (
@@ -18,15 +22,15 @@ const RippleBackground: React.FC = () => (
           cy={300}
           r={c.r}
           fill="none"
-          stroke="#60a5fa" // blue-400
-          strokeOpacity={0.25}
-          strokeWidth={6}
-          initial={{ scale: 0.8, opacity: 0.25 }}
-          animate={{ scale: 1.3, opacity: 0.25 }}
+          stroke="#2563eb" // blue-600
+          strokeOpacity={0.22}
+          strokeWidth={i % 2 === 0 ? 4 : 5}
+          initial={{ scale: 0.85, opacity: 0.22 }}
+          animate={{ scale: 1.25, opacity: 0.22 }}
           transition={{
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 6,
+            duration: c.duration,
             delay: c.delay,
             ease: 'linear',
           }}
