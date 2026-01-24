@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const AboutView: React.FC = () => {
   return (
-    <div className="w-full bg-black text-white py-20 md:py-32 px-4 md:px-12 relative overflow-hidden">
+  <div className="w-full bg-black text-white py-[120px] md:py-[120px] px-4 md:px-12 relative overflow-hidden">
       
       {/* Abstract Background Element */}
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-tashi-blue opacity-[0.05] rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/2"></div>

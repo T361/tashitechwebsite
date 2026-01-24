@@ -36,7 +36,7 @@ const features = [
 
 const ServicesView: React.FC = () => {
   return (
-    <div className="w-full py-24 md:py-32 relative">
+  <div className="w-full py-[120px] md:py-[120px] relative">
       <div className="container mx-auto px-6 relative z-10">
         
         <div className="max-w-3xl mx-auto text-center mb-20">

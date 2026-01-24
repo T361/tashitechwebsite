@@ -1,56 +1,63 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import EnterpriseDataFlow from './EnterpriseDataFlow';
+import React from "react";
+import WorkflowPattern from "./WorkflowPattern";
+import RippleBackground from "./RippleBackground";
 
-interface HeroViewProps {
-  navigateToServices: () => void;
-}
-
-const HeroView: React.FC<HeroViewProps> = ({ navigateToServices }) => {
-  const scrollToContact = () => {
-    const el = document.getElementById('contact');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    // Fallback to provided handler if contact section not found
-    navigateToServices();
-  };
-
+// Kore.ai-style split layout: left text, right SVG, strict enterprise grid
+const HeroView: React.FC = () => {
   return (
-    <section className="w-full relative pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-      {/* Enterprise data flow background - subtle and behind everything */}
-      <div className="absolute inset-0 -z-10">
-        <EnterpriseDataFlow className="absolute inset-0" />
-      </div>
-
-      {/* subtle overlay grid to keep texture legible */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f7f7f8_1px,transparent_1px),linear-gradient(to_bottom,#f7f7f8_1px,transparent_1px)] bg-[size:5rem_5rem] opacity-30 pointer-events-none" />
-
-      <div className="container mx-auto px-6 relative z-10 text-center max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-tight tracking-tight text-black mb-8 leading-[1.1]">
-            Enterprise AI Agents.<br />
-            <span className="text-gray-400">Blockchain and AI.</span>
+    <section
+      style={{
+        width: "100%",
+  background: "#fff",
+        padding: "120px 0 120px 0",
+        minHeight: 480,
+        boxSizing: "border-box",
+      }}
+    >
+      <RippleBackground />
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 64,
+          alignItems: "center",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        {/* Left: Text */}
+        <div style={{ textAlign: "left" }}>
+          <h1
+            style={{
+              fontFamily: 'Inter Tight, Inter, Arial, sans-serif',
+              fontWeight: 700,
+              fontSize: 48,
+              color: "#0a0a0a",
+              lineHeight: 1.1,
+              marginBottom: 32,
+              letterSpacing: -1.5,
+            }}
+          >
+            The Agentic Workforce<br />for Enterprise.
           </h1>
-
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-            Deploy verifiable autonomous agents at scale. Tashi transforms unstructured workflows into deterministic outcomes with intelligent orchestration and audit-grade compliance.
+          <p
+            style={{
+              fontFamily: 'Inter, Arial, sans-serif',
+              fontSize: 20,
+              color: "#444",
+              maxWidth: 520,
+              marginBottom: 40,
+              lineHeight: 1.6,
+            }}
+          >
+            Tashi provides the platform to build, deploy, and manage autonomous agents that execute complex, mission-critical workflows with verifiable trust and safety.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={scrollToContact}
-              className="w-full sm:w-auto px-8 py-4 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
-            >
-              Start Building
-            </button>
-          </div>
-        </motion.div>
+          {/* No buttons remain in Hero section */}
+        </div>
+        {/* Right: SVG Visual (empty or as needed) */}
+        <div />
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ const logos = [
 
 const LogoTicker: React.FC = () => {
   return (
-    <div className="w-full bg-white border-y border-gray-100 py-10 overflow-hidden">
+  <div className="w-full bg-white border-y border-gray-100 py-[120px] overflow-hidden">
       <div className="relative w-full flex overflow-x-hidden group">
         <div className="flex gap-16 animate-marquee whitespace-nowrap">
           {[...logos, ...logos, ...logos].map((logo, i) => (
